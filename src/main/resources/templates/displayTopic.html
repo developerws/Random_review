@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>显示题目</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <div class="center">
+            <ul>
+                <li><p th:text="${#httpSession.getAttribute('user_name')}"></p></li>
+                <li><a href="/index">主页</a></li>
+
+            </ul>
+        </div>
+    </header>
+    <form action="/updateTopic" method="post">
+        标题:<input type="text" name="title" th:value="${topic.title}">
+        内容:<input type="textarea" name="content" th:value="${topic.content}">
+        <input type="hidden" name="p_id" th:value="${topic.p_id}" >
+        <input type="submit" value="修改">
+    </form>
+    <script th:inline="javascript">
+        var message = null;
+        message = [[${message}]]
+        if(message != null){
+            alert(message);
+        }
+    </script>
+</body>
+</html>

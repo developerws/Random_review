@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加题目</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <div class="center">
+            <ul>
+                <li><p th:text="${#httpSession.getAttribute('user_name')}"></p></li>
+                <li><a href="/index">主页</a></li>
+
+            </ul>
+        </div>
+    </header>
+    <div class="bottom">
+        <form action="/addTopic" method="post">
+            <!--<input type="hidden" name="id" th:value="${#httpSession.getAttribute('id')}">-->
+            <div class="title">
+                标题：<input type="text" name="title">
+            </div>
+            <div class="content">
+                <textarea rows="3" cols="20" name="content"></textarea>
+            </div>
+
+            <input type="submit" value="保存">
+        </form>
+    </div>
+
+</body>
+</html>

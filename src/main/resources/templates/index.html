@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header>
+        <div class="center">
+            <ul>
+                <li><p th:text="${#httpSession.getAttribute('user_name')}"></p></li>
+                <li>|</li>
+                <li><a href="/addTopicPage">添加题目</a></li>
+                <li>|</li>
+                <li><a href="/displayAll">显示所有题目</a></li>
+                <li>|</li>
+                <li><a href="/uploadPage">上传文件</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="mid">
+        <ul>
+            <li>
+                <a href="/random">
+                    <button type="button">随机选取文件</button>
+                </a>
+            </li>
+            <li>
+                <a href="/randomPickTopic">
+                    <button type="button">随机选取题目</button>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <script th:inline="javascript">
+        var message = null;
+        message = [[${message}]]
+        if(message != null){
+            alert(message);
+
+        }
+    </script>
+
+    <div class="bottom" th:if="${topic}" >
+        <div class="title">
+            <p th:text="${topic.title}"></p>
+        </div>
+        <div>
+            <button type="button" id="lookAnswer" onclick="lookAnswer()">查看答案</button>
+        </div>
+        <div class="content">
+            <textarea id="answer" ></textarea>
+        </div>
+
+    </div>
+
+
+    <p th:text="${fileName}"></p>
+
+    <script th:inline="javascript">
+        function lookAnswer() {
+            var answer = document.getElementById("answer");
+            var content = [[${topic.content}]];
+            answer.value = content;
+        }
+    </script>
+
+</body>
+</html>
