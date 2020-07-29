@@ -21,8 +21,14 @@
             <div class="title">
                 标题：<input type="text" name="title">
             </div>
+
+            <div>
+                <select name="c_id">
+                    <option th:each="cl: ${categoryList}" th:value="${cl.getC_id()}" th:text="${cl.getC_name()}"></option>
+                </select>
+            </div>
             <div class="content">
-                <textarea rows="3" cols="20" name="content"></textarea>
+                <textarea name="content"></textarea>
             </div>
 
             <input type="submit" value="保存">

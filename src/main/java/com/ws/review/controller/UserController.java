@@ -1,6 +1,9 @@
 package com.ws.review.controller;
 
+import com.ws.review.pojo.Category;
 import com.ws.review.pojo.User;
+import com.ws.review.service.CategoryService;
+import com.ws.review.service.TopicService;
 import com.ws.review.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,21 +13,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping("/index")
-    public String index(HttpServletRequest request) {
+    public String index(HttpServletRequest request,Model m) {
         HttpSession session = request.getSession();
         Object idObject = session.getAttribute("id");
         if(idObject==null){
             return "redirect:/loginPage";
         }
-        else
-            return "index";
+        List<Category> categoryList = categoryService.findAll();
+        m.addAttribute("categoryList",categoryList);
+        return "index";
 
 
     }

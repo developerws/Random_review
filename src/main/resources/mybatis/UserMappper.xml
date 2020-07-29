@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ws.review.mapper.UserMapper">
+    <select id="selectById"  parameterType="int" resultType="int">
+        select number_file_owned from user where id=#{id}
+    </select>
+
+    <update id="updateNumById" parameterType="int">
+        update user set number_file_owned=number_file_owned+1 where id=#{id}
+    </update>
+
+    <insert id="insertUser" parameterType="con.ws.review.pojo.User" useGeneratedKeys="true">
+        insert into user(user_name,password) values(#{user_name},#{password})
+    </insert>
+
+    <select id="findByUsernameAndPassword" resultType="con.ws.review.pojo.User">
+        select * from user where user_name=#{user_name} and password=#{password}
+    </select>
+</mapper>

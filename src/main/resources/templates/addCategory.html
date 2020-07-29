@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>增加类别</title>
+</head>
+<body>
+    <form action="/addCategory" method="post">
+        类别：<input type="text" name="c_name">
+        <input type="submit" value="增加">
+    </form>
+
+    <script th:inline="javascript">
+        var message = null;
+        message = [[${message}]]
+        if(message != null){
+            alert(message);
+
+        }
+    </script>
+</body>
+</html>

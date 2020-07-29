@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface TopicMapper {
-    @Insert("insert into topic(id,title,content) values(#{id},#{title},#{content})")
+    @Insert("insert into topic(id,c_id,title,content) values(#{id},#{c_id},#{title},#{content})")
     @Options(useGeneratedKeys = true,keyProperty = "p_id",keyColumn = "p_id")
     int insertTopic(Topic topic);
 
@@ -27,4 +27,7 @@ public interface TopicMapper {
 
     @Select("select * from topic where id=#{id} order by rand() limit 1")
     Topic selectRandomById(int id);
+
+    @Select("select * from topic where id=#{id} and c_id=#{c_id} order by rand() limit 1")
+    Topic selectRandomByIdAndC_id(int id, int c_id);
 }

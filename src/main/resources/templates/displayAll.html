@@ -6,7 +6,6 @@
     <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<table>
     <header>
         <div class="center">
             <ul>
@@ -16,40 +15,41 @@
             </ul>
         </div>
     </header>
-    <tr>
-        <th>id</th>
-        <th>标题</th>
-        <th>内容</th>
-        <th>修改操作</th>
-        <th>删除操作</th>
-    </tr>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>标题</th>
+            <th>内容</th>
+            <th>修改操作</th>
+            <th>删除操作</th>
+        </tr>
 
-    <tr th:each="tl: ${topicList}">
-        <td th:text="${tl.p_id}"></td>
-        <td th:text="${tl.title}"></td>
-        <td th:text="${tl.content}"></td>
-        <td>
-            <form action="/displayTopic" method="post">
-                <input type="hidden" name="p_id" th:value="${tl.p_id}" >
-                <input type="submit" value="修改">
-            </form>
-        </td>
-        <td>
-            <form action="/deleteTopic" method="post">
-                <input type="hidden" name="p_id" th:value="${tl.p_id}" >
-                <input type="submit" value="删除">
-            </form>
-        </td>
-    </tr>
+        <tr th:each="tl: ${topicList}">
+            <td th:text="${tl.p_id}"></td>
+            <td th:text="${tl.title}"></td>
+            <td th:text="${tl.content}"></td>
+            <td>
+                <form action="/displayTopic" method="post">
+                    <input type="hidden" name="p_id" th:value="${tl.p_id}" >
+                    <input type="submit" value="修改">
+                </form>
+            </td>
+            <td>
+                <form action="/deleteTopic" method="post">
+                    <input type="hidden" name="p_id" th:value="${tl.p_id}" >
+                    <input type="submit" value="删除">
+                </form>
+            </td>
+        </tr>
 
-</table>
-<script th:inline="javascript">
-    var message = null;
-    message = [[${message}]]
-    if(message != null){
-        alert(message);
+    </table>
+    <script th:inline="javascript">
+        var message = null;
+        message = [[${message}]]
+        if(message != null){
+            alert(message);
 
-    }
-</script>
+        }
+    </script>
 </body>
 </html>

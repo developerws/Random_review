@@ -11,16 +11,25 @@
             <ul>
                 <li><p th:text="${#httpSession.getAttribute('user_name')}"></p></li>
                 <li><a href="/index">主页</a></li>
-
+                <li>|</li>
+                <li><a href="/displayAll">显示所有题目</a></li>
             </ul>
         </div>
     </header>
-    <form action="/updateTopic" method="post">
-        标题:<input type="text" name="title" th:value="${topic.title}">
-        内容:<input type="textarea" name="content" th:value="${topic.content}">
-        <input type="hidden" name="p_id" th:value="${topic.p_id}" >
-        <input type="submit" value="修改">
-    </form>
+    <div class="bottom">
+        <form action="/updateTopic" method="post">
+            <div class="title">
+                标题:<input type="text" name="title" th:value="${topic.title}">
+            </div>
+            <div class="content">
+                <textarea name="content" th:text="${topic.content}"></textarea>
+            </div>
+
+            <input type="hidden" name="p_id" th:value="${topic.p_id}" >
+            <input type="submit" value="修改">
+        </form>
+    </div>
+
     <script th:inline="javascript">
         var message = null;
         message = [[${message}]]

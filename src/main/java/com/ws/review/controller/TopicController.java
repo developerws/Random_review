@@ -1,36 +1,44 @@
 package com.ws.review.controller;
 
+import com.ws.review.pojo.Category;
 import com.ws.review.pojo.Topic;
+import com.ws.review.pojo.User;
+import com.ws.review.service.CategoryService;
 import com.ws.review.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TopicController {
     @Autowired
     TopicService topicService;
+    @Autowired
+    CategoryService categoryService;
 
     @RequestMapping("/addTopicPage")
-    public String addTopicPage(){
+    public String addTopicPage(Model m){
+        List<Category> categoryList = categoryService.findAll();
+        m.addAttribute("categoryList",categoryList);
         return "addTopic";
     }
 
 
     @RequestMapping("/addTopic")
-    public String addTopic(HttpServletRequest request, @RequestParam("title") String title, @RequestParam("content") String content, Model m){
+    public String addTopic(HttpServletRequest request, @ModelAttribute("topic") Topic topic, Model m){
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("id");
-        Topic topic = new Topic();
         topic.setId(id);
-        topic.setTitle(title);
-        topic.setContent(content);
+        System.out.println(topic.getC_id());
+        System.out.println(topic.getId());
         int result = topicService.addTopic(topic);
         if(result>0){
             m.addAttribute("message","添加题目成功");
@@ -64,11 +72,7 @@ public class TopicController {
     }
 
     @RequestMapping("/updateTopic")
-    public String updateTopic(@RequestParam("p_id") int p_id,@RequestParam("title") String title,@RequestParam("content") String content, Model m){
-        Topic topic = new Topic();
-        topic.setP_id(p_id);
-        topic.setTitle(title);
-        topic.setContent(content);
+    public String updateTopic(@ModelAttribute("topic") Topic topic, Model m){
         int result = topicService.updateTopic(topic);
         if(result>0){
             m.addAttribute("message","修改成功");
@@ -91,12 +95,14 @@ public class TopicController {
         return "forward:/displayAll";
     }
     @RequestMapping("/randomPickTopic")
-    public String RandomPickTopic(HttpServletRequest request,Model m){
+    public String RandomPickTopic(HttpServletRequest request,@RequestParam("c_id") int c_id,Model m){
         HttpSession session = request.getSession();
         int id = (Integer) session.getAttribute("id");
-        Topic topic = topicService.RandomPickTopic(id);
-
+        Topic topic = topicService.RandomPickTopic(id,c_id);
+        List<Category> categoryList = categoryService.findAll();
+        m.addAttribute("categoryList",categoryList);
         m.addAttribute("topic",topic);
         return "index";
     }
+
 }

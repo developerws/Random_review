@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>文件</title>
+    <link th:href="@{/css/index.css}" rel="stylesheet" type="text/css" />
 </head>
 <body>
+    <header>
+        <div class="center">
+            <ul>
+                <li><p th:text="${#httpSession.getAttribute('user_name')}"></p></li>
+                <li><a href="/index">主页</a></li>
 
+            </ul>
+        </div>
+    </header>
     <form action="upload" method="post" enctype="multipart/form-data">
         选择文件：<input type="file" name="file">
         <input type="submit" value="提交">

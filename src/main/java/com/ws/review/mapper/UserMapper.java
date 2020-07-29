@@ -1,12 +1,8 @@
 package com.ws.review.mapper;
 
 import com.ws.review.pojo.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-
 @Mapper
 @Repository
 public interface UserMapper {
@@ -14,11 +10,9 @@ public interface UserMapper {
     int selectById(int id);
     @Select("update user set number_file_owned=number_file_owned+1 where id=#{id}")
     Integer updateNumById(int id);
-
     @Insert("insert into user(user_name,password) values(#{user_name},#{password})")
     @Options(useGeneratedKeys = true,keyProperty = "user_id",keyColumn = "user_id")
     int insertUser(User user);
-
     @Select("select * from user where user_name=#{user_name} and password=#{password}")
-    User findByUsernameAndPassword(String user_name,String password);
+    User findByUsernameAndPassword(@Param("user_name") String user_name, @Param("password") String password);
 }

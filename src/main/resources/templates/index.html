@@ -17,6 +17,8 @@
                 <li><a href="/displayAll">显示所有题目</a></li>
                 <li>|</li>
                 <li><a href="/uploadPage">上传文件</a></li>
+                <li>|</li>
+                <li><a href="/addCategoryPage">增加类别</a></li>
             </ul>
         </div>
     </header>
@@ -28,9 +30,14 @@
                 </a>
             </li>
             <li>
-                <a href="/randomPickTopic">
-                    <button type="button">随机选取题目</button>
-                </a>
+                <form action="/randomPickTopic" method="post">
+                    <select name="c_id">
+                        <option value="0">全部</option>
+                        <option th:each="cl: ${categoryList}" th:value="${cl.getC_id()}" th:text="${cl.getC_name()}"></option>
+                    </select>
+                    <input type="submit" th:value="随机选取题目">
+                </form>
+
             </li>
         </ul>
     </div>
@@ -50,6 +57,13 @@
         </div>
         <div>
             <button type="button" id="lookAnswer" onclick="lookAnswer()">查看答案</button>
+            <script th:inline="javascript">
+                function lookAnswer() {
+                    var answer = document.getElementById("answer");
+                    var content = [[${topic.content}]];
+                    answer.value = content;
+                }
+            </script>
         </div>
         <div class="content">
             <textarea id="answer" ></textarea>
@@ -58,15 +72,9 @@
     </div>
 
 
-    <p th:text="${fileName}"></p>
+    <!--<p th:text="${fileName}"></p>-->
 
-    <script th:inline="javascript">
-        function lookAnswer() {
-            var answer = document.getElementById("answer");
-            var content = [[${topic.content}]];
-            answer.value = content;
-        }
-    </script>
+
 
 </body>
 </html>

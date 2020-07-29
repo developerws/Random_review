@@ -1,8 +1,10 @@
 package com.ws.review.service;
 
+import com.sun.corba.se.impl.oa.toa.TOA;
 import com.ws.review.pojo.Topic;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TopicService {
     int addTopic(Topic topic);
@@ -15,6 +17,5 @@ public interface TopicService {
 
     Integer deleteTopic(int p_id);
 
-    Topic RandomPickTopic(int id);
-
+    Topic RandomPickTopic(int id, int c_id);
 }
